@@ -88,7 +88,7 @@ app.post("/unsubscribe/:listname",async(req,res)=>{
 app.post("/sendnotification/:listname",async(req,res)=>{
     const broadcast_body = {
         list_id: req.params.listname,
-        template: req.body.list_name,
+        template: req.params.listname,
         notification_category: "transactional",
         channels: ["email"],
         data:{
