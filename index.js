@@ -5,7 +5,7 @@ const app  = express();
 const cors = require('cors');
 app.use(cors());
 app.use(express.json());
-
+const { Event } = require("@suprsend/node-sdk");
 const { Suprsend, SubscriberListBroadcast } = require("@suprsend/node-sdk")
 const supr_client = new Suprsend(process.env.WKEY, process.env.WSECRET);
 
@@ -61,10 +61,10 @@ app.post("/subscribe/:listname",async(req,res)=>{
      ]);
      data1.then((res) => console.log(res)).catch((err) => console.log(err));
     
+    const event_name = "NEWSSUBSCRIBED";
     let properties = {
         "name":req.params.listname
     }
-    const event_name = 'NEWSSUBSCRIBED';
     const event = new Event(distinct_id, event_name, properties);
     const response2 = await supr_client.track_event(event);
     console.log('response', response2);
